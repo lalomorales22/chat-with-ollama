@@ -1,3 +1,5 @@
+![Chat with Ollama](https://laloadrianmorales.com/wp-content/uploads/2024/07/Screenshot-2024-07-12-at-2.18.37%E2%80%AFAM-1024x790.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -21,4 +23,4 @@ npm start
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.                 
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
