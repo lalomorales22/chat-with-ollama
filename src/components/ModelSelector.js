@@ -1,18 +1,17 @@
 import React from 'react';
 
-const models = ["gemma2", "dolphin-llama3", "starcoder", "qwen2", "gemma", "phi3", "llama3", "mistral"];
+const models = ["phi3", "qwen2", "dolphin-llama3", "starcoder", "gemma", "llama3", "mistral"];
 
 function ModelSelector({ model, setModel }) {
   return (
     <div className="model-selector">
-      <label htmlFor="model-select">Choose an AI model: </label>
+      <h3>Select Model</h3>
       <select 
-        id="model-select" 
         value={model} 
         onChange={(e) => setModel(e.target.value)}
       >
         {models.map(m => (
-          <option key={m} value={m}>{m.charAt(0).toUpperCase() + m.slice(1)}</option>
+          <option key={m} value={m}>{m}</option>
         ))}
       </select>
     </div>

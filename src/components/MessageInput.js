@@ -17,12 +17,13 @@ function MessageInput({ onSendMessage, isLoading }) {
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type a message..."
+        placeholder="Type a message or '/image' to generate an image..."
         disabled={isLoading}
       />
       <button type="submit" disabled={isLoading}>
         {isLoading ? 'Sending...' : 'Send'}
       </button>
+      <p className="input-hint">Tip: Use '/image' followed by a description to generate images.</p>
     </form>
   );
 }

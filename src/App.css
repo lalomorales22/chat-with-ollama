@@ -1,60 +1,93 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
 
 :root {
-  --primary-color: #6200ee;
-  --secondary-color: #03dac6;
-  --background-color: #f5f5f5;
-  --text-color: #333333;
-  --error-color: #b00020;
-  --success-color: #4caf50;
+  --primary-color: #00ffff;
+  --secondary-color: #ff00ff;
+  --background-color: #0a0a2a;
+  --text-color: #ffffff;
+  --error-color: #ff4444;
+  --success-color: #00ff00;
+  --record-button-color: #ff0000;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
   margin: 0;
   padding: 0;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+  background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+  background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  animation: backgroundAnimation 100s linear infinite;
+}
+
+@keyframes backgroundAnimation {
+  from { background-position: 0 0, 40px 60px, 130px 270px, 70px 100px; }
+  to { background-position: 550px 550px, 390px 410px, 380px 820px, 220px 650px; }
 }
 
 .App {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.model-selector {
-  margin-bottom: 1.5rem;
+.hero {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--primary-color);
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 10px var(--primary-color);
 }
 
-.model-selector select {
-  width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
+.hero h1 {
+  margin: 0;
+  font-size: 3em;
 }
 
-.model-selector select:hover,
-.model-selector select:focus {
-  border-color: var(--primary-color);
-  outline: none;
+.hero p {
+  margin: 10px 0 0;
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  overflow-y: auto;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .chat-log {
-  height: 400px;
+  flex: 1;
   overflow-y: auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  background-color: #fafafa;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2) inset;
 }
 
 .message {
@@ -62,106 +95,176 @@ body {
   padding: 0.75rem;
   border-radius: 8px;
   max-width: 80%;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
 }
 
 .message.user {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: rgba(0, 255, 255, 0.2);
+  color: var(--text-color);
   align-self: flex-end;
   margin-left: auto;
 }
 
 .message.assistant {
-  background-color: #e0e0e0;
+  background-color: rgba(255, 0, 255, 0.2);
   color: var(--text-color);
   align-self: flex-start;
 }
 
 .message-input {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .message-input input {
   flex-grow: 1;
   padding: 0.75rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--primary-color);
   border-radius: 4px;
-  transition: border-color 0.3s ease;
-}
-
-.message-input input:focus {
-  border-color: var(--primary-color);
-  outline: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-color);
 }
 
 button {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  color: white;
+  color: var(--background-color);
   background-color: var(--primary-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+  box-shadow: 0 0 15px var(--secondary-color);
+}
+
+.audio-recorder button {
+  background-color: var(--record-button-color);
+}
+
+.bottom-bar {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  box-shadow: 0 -2px 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Add more specific styles for other components as needed */
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: auto;
+  }
+}
+
+.personal-details {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.personal-details h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.personal-details input,
+.personal-details textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  color: var(--text-color);
+}
+
+.personal-details textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.custom-field {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.custom-field input {
+  flex: 1;
+}
+
+.image-generator {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.image-generator h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.image-generator input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  color: var(--text-color);
+}
+
+.image-generator button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #3700b3;
-}
-
-.audio-recorder button {
+.image-generator button:hover {
   background-color: var(--secondary-color);
-  color: var(--text-color);
 }
 
-.audio-recorder button:hover {
-  background-color: #018786;
+.image-generator button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-.error {
+.image-generator .error {
   color: var(--error-color);
-  margin-top: 0.5rem;
+  margin-top: 10px;
 }
 
-@media (max-width: 600px) {
-  .App {
-    margin: 0;
-    padding: 1rem;
-    border-radius: 0;
-  }
-
-  .message {
-    max-width: 90%;
-  }
+.image-generator .generated-image {
+  margin-top: 20px;
+  text-align: center;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.image-generator .generated-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
-.message {
-  animation: fadeIn 0.3s ease-out;
-}
-
-/* Scrollbar styling */
-.chat-log::-webkit-scrollbar {
-  width: 8px;
-}
-
-.chat-log::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.chat-log::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-.chat-log::-webkit-scrollbar-thumb:hover {
-  background: #555;
+.message-input .input-hint {
+  font-size: 0.8em;
+  color: var(--secondary-color);
+  margin-top: 5px;
+  text-align: left;
 }

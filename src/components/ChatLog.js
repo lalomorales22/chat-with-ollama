@@ -13,7 +13,20 @@ function ChatLog({ messages }) {
     <div className="chat-log">
       {messages.map((msg, index) => (
         <div key={index} className={`message ${msg.role}`}>
-          <strong>{msg.role === 'user' ? 'You' : msg.role === 'assistant' ? 'AI' : 'Error'}:</strong> {msg.content}
+          <strong>{msg.role === 'user' ? 'You' : msg.role === 'assistant' ? 'AI' : 'Error'}:</strong>
+          <p>{msg.content}</p>
+          {msg.image && (
+            <img 
+              src={msg.image} 
+              alt="Generated" 
+              className="generated-image"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'path/to/fallback/image.png';
+                console.error('Error loading image:', msg.image);
+              }}
+            />
+          )}
         </div>
       ))}
       <div ref={messagesEndRef} />

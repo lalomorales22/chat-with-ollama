@@ -1,6 +1,13 @@
-const OLLAMA_URL = 'http://localhost:11434/api/generate';
+export async function sendMessage(model, message, responseParams, personalDetails) {
+  const OLLAMA_URL = 'http://localhost:11434/api/generate';
+  
+  // Construct a prompt that includes personal details
+  const personalDetailsPrompt = Object.entries(personalDetails)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('\n');
+  
+  const fullPrompt = `User Details:\n${personalDetailsPrompt}\n\nUser: ${message}`;
 
-export async function sendMessage(model, message) {
   try {
     const response = await fetch(OLLAMA_URL, {
       method: 'POST',
@@ -9,8 +16,12 @@ export async function sendMessage(model, message) {
       },
       body: JSON.stringify({
         model: model,
-        prompt: message,
-        stream: true
+        prompt: fullPrompt,
+        stream: false,
+        options: {
+          temperature: responseParams.temperature,
+          top_p: responseParams.topP,
+        }
       }),
     });
 
@@ -18,34 +29,10 @@ export async function sendMessage(model, message) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const reader = response.body.getReader();
-    let fullResponse = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      
-      const chunk = new TextDecoder().decode(value);
-      const lines = chunk.split('\n').filter(line => line.trim() !== '');
-      
-      for (const line of lines) {
-        try {
-          const data = JSON.parse(line);
-          if (data.response) {
-            fullResponse += data.response;
-          }
-        } catch (parseError) {
-          console.error('Error parsing JSON chunk:', parseError);
-        }
-      }
-    }
-
-    return fullResponse;
+    const data = await response.json();
+    return data.response;
   } catch (error) {
     console.error('Error:', error);
-    if (error.message.includes('Failed to fetch')) {
-      return 'Unable to connect to the Ollama server. Please ensure it is running and accessible.';
-    }
-    return `An error occurred: ${error.message}. Please check your Ollama server and selected model.`;
+    throw error;
   }
 }
